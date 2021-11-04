@@ -5,14 +5,22 @@
  */
 package dbmsdemo;
 
+import bo.Cohort;
 import bo.Student;
+import dao.CohortHandler;
+import dao.StudentHandler;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import utils.GlobalData;
 
 /**
  *
@@ -20,6 +28,13 @@ import javax.swing.KeyStroke;
  */
 public class FrmUpdateStudent extends javax.swing.JDialog {
 
+    ComboBoxModel comboBoxModel;
+    List<Cohort> scs = new CohortHandler().loadStudents();
+    private void populateData() {
+        Cohort[] scl = new Cohort[0];
+        comboBoxModel = new DefaultComboBoxModel(scs.toArray(scl));
+        cbxCohort.setModel(comboBoxModel);
+    }
     /**
      * A return status code - returned if Cancel button has been pressed
      */
@@ -32,17 +47,25 @@ public class FrmUpdateStudent extends javax.swing.JDialog {
     /**
      * Creates new form FrmUpdateStudent
      */
-    private Student currentStudent;
-    public void setStudent(Student std){
+    public Student currentStudent;
+
+    public void setStudent(Student std) {
         currentStudent = std;
         txtStudentName.setText(std.getsName());
         txtStudentAddress.setText(std.getsAddress());
-        
+        //Set selected class
+        scs.forEach(ch->{
+            if(ch.getChId() == std.getChId()){
+                cbxCohort.setSelectedItem(ch);
+            }
+        });
     }
+
     public FrmUpdateStudent(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        //Populate combobox
+        populateData();
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -183,8 +206,17 @@ public class FrmUpdateStudent extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         //Do the update
+        String sName = txtStudentName.getText();
+        String sAddress = txtStudentAddress.getText();
+        int chId = ((Cohort)cbxCohort.getSelectedItem()).getChId();
+        int stfId = GlobalData.stf.getStfId();
+        int ret = new StudentHandler().updateStudent(currentStudent.getsId(), sName, sAddress, chId, stfId);
+        if(ret==1){
+            doClose(RET_OK);
+        }else{
+            JOptionPane.showMessageDialog(this, "Update failed!");
+        }
         
-        doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -197,7 +229,7 @@ public class FrmUpdateStudent extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);

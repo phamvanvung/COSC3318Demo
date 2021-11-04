@@ -27,7 +27,6 @@ public class FrmAddStudent extends javax.swing.JInternalFrame {
         comboBoxModel = new DefaultComboBoxModel(scs.toArray(scl));
         cbxCohort.setModel(comboBoxModel);
     }
-    
     /**
      * Creates new form AddStudent
      */

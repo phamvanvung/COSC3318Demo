@@ -27,7 +27,19 @@ public class StudentHandler {
     }
 
     public int addStudent(String sName, String sAddress, int clsId, int stfId) {
-        String stmStr = String.format("insert into Student(sName, sAddress, chId, stfId) values('%s', '%s', %d, %d)", sName, sAddress, clsId, stfId);
+        String cmdTemplate = "insert into Student(sName, sAddress, chId, stfId) values('%s', '%s', %d, %d)";
+        String stmStr = String.format(cmdTemplate, sName, sAddress, clsId, stfId);
+        return sqlUtil.executeUpdate(stmStr);
+    }
+    
+    public int deleteStudent(int sId){
+        String stm = String.format("delete from student where sId = %d", sId);
+        return sqlUtil.executeUpdate(stm);
+    }
+    
+    public int updateStudent(int sId, String sName, String sAddress, int clsId, int stfId){
+        String cmdTemplate = "update Student set sName='%s', sAddress='%s', chId=%d, stfId=%d where sId=%d";
+        String stmStr = String.format(cmdTemplate, sName, sAddress, clsId, stfId, sId);
         return sqlUtil.executeUpdate(stmStr);
     }
     
@@ -50,8 +62,5 @@ public class StudentHandler {
         }
         return students;
     }
-    public int deleteStudent(int sId){
-        String stm = String.format("delete from student where sId = %d", sId);
-        return sqlUtil.executeUpdate(stm);
-    }
+    
 }

@@ -36,5 +36,4 @@ public class CohortHandler {
         }
         return scs;
     }
-    
 }

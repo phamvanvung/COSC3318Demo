@@ -27,12 +27,12 @@ public class FrmViewStudents extends javax.swing.JInternalFrame {
     List<Student> students;
 
     private void populateData(String keyword) {
-        DefaultTableModel tm = new DefaultTableModel(new String[]{"Student ID", "Student Name", "Student Address", "Student Cohort"}, 0) {
+        String[] colNames = new String[]{"Student ID", "Student Name", "Student Address", "Student Cohort"};
+        DefaultTableModel tm = new DefaultTableModel(colNames, 0) {
             @Override
             public boolean isCellEditable(int i, int i1) {
                 return false;
             }
-
         };
         students = new StudentHandler().getStudents(keyword);
         students.forEach((s) -> {
@@ -148,7 +148,7 @@ public class FrmViewStudents extends javax.swing.JInternalFrame {
             frmUpdateStudent.setVisible(true);
             
             if(frmUpdateStudent.getReturnStatus() == FrmUpdateStudent.RET_OK){
-                
+                refreshStudentTable();
                 JOptionPane.showMessageDialog(this, "Updated");
             }
         }
@@ -163,19 +163,20 @@ public class FrmViewStudents extends javax.swing.JInternalFrame {
         int selectedRow = tblStudents.getSelectedRow();
         if (selectedRow != -1) {
             Student std = students.get(selectedRow);
-            int dialogRet = JOptionPane.showConfirmDialog(this, String.format("Delete student: %s?", std.getsName()));
+            String deleteCmd = String.format("Delete student: %s?", std.getsName());
+            int dialogRet = JOptionPane.showConfirmDialog(this, deleteCmd);
             if(dialogRet== JOptionPane.OK_OPTION){
                 new StudentHandler().deleteStudent(std.getsId());
                 //Reload the table
-                populateData(txtKeyword.getText());
+                refreshStudentTable();
             }
         }else{
             JOptionPane.showMessageDialog(this, "Please select a student to delete");
         }
-
-
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+    public void refreshStudentTable(){
+        populateData(txtKeyword.getText());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
