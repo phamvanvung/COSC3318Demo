@@ -25,15 +25,16 @@ import utils.GlobalData;
  * @author Pham Van Vung
  */
 public class FrmMain extends javax.swing.JFrame {
+    JMenuItem[] menuItems;
     //Declare all the forms
     FrmLogin frmLogin = new FrmLogin();
     FrmAddStudent frmAddStudent = new FrmAddStudent();
     FrmViewStudents frmViewStudents = new FrmViewStudents();
-    
+    //Create a map for all the forms
     Map<String, JInternalFrame> forms = new HashMap<>();
     
     
-    JMenuItem[] menuItems;
+    
     /**
      * Creates new form JavaApplication18
      */
@@ -153,31 +154,16 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLoginActionPerformed
-        showForm(frmLogin, false);
+        showForm("frmLogin", false);
     }//GEN-LAST:event_mniLoginActionPerformed
 
-    private void showLogin() {
-        if (frmLogin == null || frmLogin.isClosed()) {
-            frmLogin = new FrmLogin();
-            jdpContainer.add(frmLogin);
-            frmLogin.show();
-        }
-        try {
-            frmLogin.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void showForm(JInternalFrame frm) {
-        showForm(frm, false);
-    }
+    
     private void showForm(String frmName) {
         showForm(frmName, false);
     }
     private void showForm(String name, boolean checkLogin){
         if (checkLogin && GlobalData.stf == null) {
-            showForm(frmLogin, false);
+            showForm("frmLogin", false);
         } else {
             try {
                 if (forms.get(name).isClosed()) {
@@ -191,25 +177,10 @@ public class FrmMain extends javax.swing.JFrame {
             }
         }
     }
-    private void showForm(JInternalFrame frm, boolean checkLogin) {
-        if (checkLogin && GlobalData.stf == null) {
-            showForm(frmLogin, false);
-        } else {
-            try {
-                if (frm.isClosed()) {
-                    frm = frm.getClass().newInstance();
-                    jdpContainer.add(frm);
-                }
-                frm.show();
-                frm.setSelected(true);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
+    
 
     private void mniDeleteStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDeleteStudentActionPerformed
-        showForm(frmViewStudents);
+        showForm("frmViewStudents");
     }//GEN-LAST:event_mniDeleteStudentActionPerformed
     
     private void mniAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAddStudentActionPerformed
