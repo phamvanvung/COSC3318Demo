@@ -8,6 +8,11 @@ package dbmsdemo;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
@@ -24,6 +29,10 @@ public class FrmMain extends javax.swing.JFrame {
     FrmLogin frmLogin = new FrmLogin();
     FrmAddStudent frmAddStudent = new FrmAddStudent();
     FrmViewStudents frmViewStudents = new FrmViewStudents();
+    
+    Map<String, JInternalFrame> forms = new HashMap<>();
+    
+    
     JMenuItem[] menuItems;
     /**
      * Creates new form JavaApplication18
@@ -31,9 +40,13 @@ public class FrmMain extends javax.swing.JFrame {
     public FrmMain() {
         initComponents();
         //Add the forms to the container
-        jdpContainer.add(frmLogin);
-        jdpContainer.add(frmAddStudent);
-        jdpContainer.add(frmViewStudents);
+        forms.put("frmLogin", frmLogin);
+        forms.put("frmAddStudent", frmAddStudent);
+        forms.put("frmViewStudents", frmViewStudents);
+        //Add them to the container
+        forms.keySet().forEach(key->{
+            jdpContainer.add(forms.get(key));
+        });
     }
 
     /**
@@ -140,7 +153,7 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLoginActionPerformed
-        showForm(frmLogin, true);
+        showForm(frmLogin, false);
     }//GEN-LAST:event_mniLoginActionPerformed
 
     private void showLogin() {
@@ -157,9 +170,27 @@ public class FrmMain extends javax.swing.JFrame {
     }
 
     private void showForm(JInternalFrame frm) {
-        showForm(frm, true);
+        showForm(frm, false);
     }
-
+    private void showForm(String frmName) {
+        showForm(frmName, false);
+    }
+    private void showForm(String name, boolean checkLogin){
+        if (checkLogin && GlobalData.stf == null) {
+            showForm(frmLogin, false);
+        } else {
+            try {
+                if (forms.get(name).isClosed()) {
+                    forms.put(name,forms.get(name).getClass().newInstance());
+                    jdpContainer.add(forms.get(name));
+                }
+                forms.get(name).show();
+                forms.get(name).setSelected(true);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
     private void showForm(JInternalFrame frm, boolean checkLogin) {
         if (checkLogin && GlobalData.stf == null) {
             showForm(frmLogin, false);
@@ -182,15 +213,15 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_mniDeleteStudentActionPerformed
     
     private void mniAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAddStudentActionPerformed
-        showForm(frmAddStudent);
+        showForm("frmAddStudent");
     }//GEN-LAST:event_mniAddStudentActionPerformed
 
     private void mniViewStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniViewStudentActionPerformed
-        showForm(frmViewStudents);
+        showForm("frmViewStudents");
     }//GEN-LAST:event_mniViewStudentActionPerformed
 
     private void mniUpdateStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUpdateStudentActionPerformed
-        showForm(frmViewStudents);
+        showForm("frmViewStudents");
     }//GEN-LAST:event_mniUpdateStudentActionPerformed
 
     /**
