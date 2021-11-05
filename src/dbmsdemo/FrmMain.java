@@ -101,9 +101,19 @@ public class FrmMain extends javax.swing.JFrame {
         mniFile.add(mniLogin);
 
         mniLogout.setText("logout");
+        mniLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniLogoutActionPerformed(evt);
+            }
+        });
         mniFile.add(mniLogout);
 
         mniExit.setText("exit");
+        mniExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniExitActionPerformed(evt);
+            }
+        });
         mniFile.add(mniExit);
 
         mnbMainMenu.add(mniFile);
@@ -159,7 +169,7 @@ public class FrmMain extends javax.swing.JFrame {
 
     
     private void showForm(String frmName) {
-        showForm(frmName, false);
+        showForm(frmName, true);
     }
     private void showForm(String name, boolean checkLogin){
         if (checkLogin && GlobalData.stf == null) {
@@ -194,6 +204,19 @@ public class FrmMain extends javax.swing.JFrame {
     private void mniUpdateStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUpdateStudentActionPerformed
         showForm("frmViewStudents");
     }//GEN-LAST:event_mniUpdateStudentActionPerformed
+
+    private void mniLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogoutActionPerformed
+        GlobalData.stf = null;
+        //Close all forms
+        for (Map.Entry<String, JInternalFrame> entry : forms.entrySet()) {
+            JInternalFrame value = entry.getValue();
+            value.dispose();
+        }
+    }//GEN-LAST:event_mniLogoutActionPerformed
+
+    private void mniExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mniExitActionPerformed
 
     /**
      * @param args the command line arguments

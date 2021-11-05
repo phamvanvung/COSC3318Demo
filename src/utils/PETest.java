@@ -5,13 +5,12 @@
  */
 package utils;
 
-import bo.Staff;
-import javax.swing.JDesktopPane;
-
 /**
  *
  * @author Pham Van Vung
  */
-public class GlobalData {
-    public static Staff stf = null; //new Staff(1, "Mr. A"); //Default staff
+public class PETest {
+    public static void main(String[] args) {
+        System.out.println(PasswordEncryptor.encryptPassword("apass"));
+    }
 }

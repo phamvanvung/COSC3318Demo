@@ -23,11 +23,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="logout"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniLogoutActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniExit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="exit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniExitActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
