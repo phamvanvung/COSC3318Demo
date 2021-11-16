@@ -33,8 +33,6 @@ public class FrmMain extends javax.swing.JFrame {
     //Create a map for all the forms
     Map<String, JInternalFrame> forms = new HashMap<>();
     
-    
-    
     /**
      * Creates new form JavaApplication18
      */
@@ -173,6 +171,7 @@ public class FrmMain extends javax.swing.JFrame {
     }
     private void showForm(String name, boolean checkLogin){
         if (checkLogin && GlobalData.stf == null) {
+            //Check for authorization here
             showForm("frmLogin", false);
         } else {
             try {
