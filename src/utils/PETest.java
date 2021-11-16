@@ -11,6 +11,6 @@ package utils;
  */
 public class PETest {
     public static void main(String[] args) {
-        System.out.println(PasswordEncryptor.encryptPassword("apass"));
+        System.out.println(PasswordEncryptor.encryptPassword("pass"));
     }
 }

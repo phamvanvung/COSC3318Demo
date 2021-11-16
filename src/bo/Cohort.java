@@ -10,7 +10,7 @@ package bo;
  * @author Pham Van Vung
  */
 public class Cohort {
-
+    //private members
     private int chId;
     private String chName;
 
