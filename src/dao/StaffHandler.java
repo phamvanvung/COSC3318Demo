@@ -25,7 +25,7 @@ public class StaffHandler {
     public Staff login(String username, String password) {
         Staff stf = null;
         //encrypt
-        password = PasswordEncryptor.encryptPassword(password);
+//        password = PasswordEncryptor.encryptPassword(password);
         String stm = String.format("select stfId, stfName from Staff where stfUsername='%s' and stfPassword='%s'", username, password);
         ResultSet rsStaff = sqlUtil.executeQuery(stm);
         try {

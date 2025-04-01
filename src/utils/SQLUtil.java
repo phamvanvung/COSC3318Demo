@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Pham Van Vung
  */
-public class SQLUtil {
+public class SQLUtil implements AutoCloseable {
 
     private Connection con;
     private Statement stm;
@@ -27,7 +27,7 @@ public class SQLUtil {
             if (con == null || con.isClosed()) {
                 String url = "jdbc:mysql://localhost:3306/studentdb?allowMultiQueries=true";
                 String username = "root";
-                String password = "root";
+                String password = "pass";
                 try {
                     con = DriverManager.getConnection(url, username, password);
                 } catch (SQLException ex) {
@@ -75,11 +75,17 @@ public class SQLUtil {
         } catch (Exception ex) {
         }
     }
+    
+//    @Override
+//    protected void finalize() throws Throwable {
+//        closeConnection();
+//        super.finalize(); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     @Override
-    protected void finalize() throws Throwable {
+    public void close() throws Exception {
         closeConnection();
-        super.finalize(); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
 }

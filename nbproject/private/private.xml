@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Pham%20Van%20Vung/OneDrive%20-%20Sam%20Houston%20State%20University/Documents/NetBeansProjects/DBMSDemo/src/dbmsdemo/FrmMain.java</file>
-            <file>file:/C:/Users/Pham%20Van%20Vung/OneDrive%20-%20Sam%20Houston%20State%20University/Documents/NetBeansProjects/DBMSDemo/src/dbmsdemo/FrmLogin.java</file>
+            <file>file:/C:/NetBeansProjects/COSC3318Demo/src/dao/StaffHandler.java</file>
+            <file>file:/C:/NetBeansProjects/COSC3318Demo/src/bo/Slide%2009.sql</file>
+            <file>file:/C:/NetBeansProjects/COSC3318Demo/src/utils/PasswordEncryptor.java</file>
+            <file>file:/C:/NetBeansProjects/COSC3318Demo/src/dbmsdemo/FrmMain.java</file>
+            <file>file:/C:/NetBeansProjects/COSC3318Demo/src/utils/SQLUtil.java</file>
         </group>
     </open-files>
 </project-private>
